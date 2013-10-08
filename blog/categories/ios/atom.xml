@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: iOS | Louis Larpin]]></title>
+  <link href="http://lilfaf.github.io/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://lilfaf.github.io/"/>
+  <updated>2013-10-08T15:00:19+02:00</updated>
+  <id>http://lilfaf.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Larpin]]></name>
+    <email><![CDATA[louis.larpin@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Play Vimeo Videos on iOS With Ease]]></title>
+    <link href="http://lilfaf.github.io/blog/2013/10/08/play-vimeo-videos-on-ios-with-ease/"/>
+    <updated>2013-10-08T13:46:00+02:00</updated>
+    <id>http://lilfaf.github.io/blog/2013/10/08/play-vimeo-videos-on-ios-with-ease</id>
+    <content type="html"><![CDATA[<h3>Context</h3>
+
+<p>A year ago two friends started an unusual participative trip around the world. They came up with a crowd funded project called <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Nearly every month they let users vote for a challenge based on the customs of the country they are visiting at the current time. Once the challenge has been completed they report their adventure on a mini documentary video. As a friend and supporter, I started building an iphone application but problem was most of their videos were hosted on Vimeo.</p>
+
+<p>So far the only way to play Vimeo video on an iphone application was to embed their <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> into a UIWebView widget. Unfortunately, using this technique I often had an error message saying that the video couldn’t be played on mobile devices.</p>
+
+<p>Therefore I started working on another solution to play all videos without a glitch, called it YTVimeoExtractor.</p>
+
+<!-- more -->
+
+
+<h3>Introduting YTVimeoExtractor</h3>
+
+<p>YTVimeoExtractor helps you fetch mp4 urls which can be use in iOS’s native player. You can even choose between mobile, standard and high definition quality. The coolest point is that it doesn’t use any UIWebView which makes it fast and clean.</p>
+
+<p>YTVimeoExtractor supports iOS 4.0 and above as it is deployed for an ARC environment.</p>
+
+<h2>Install</h2>
+
+<p>I recommend installing using <a href="http://cocoapods.org">CocoaPods</a>. Just add to your Podfile</p>
+
+<p><code>ruby
+pod 'YTVimeoExtractor'
+</code></p>
+
+<p>then run <code>pod install</code>.</p>
+
+<p>Alternatively you can just copy the <a href="https://github.com/lilfaf/YTVimeoExtractor/tree/master">YTVimeoExtractor</a> folder to your project.</p>
+
+<p>```objc</p>
+
+<h1>import &ldquo;YTVimeoExtractor.h&rdquo;</h1>
+
+<p>```</p>
+
+<h2>Usage</h2>
+
+<p>You can either use the block based method passing it the video url and the desired quality</p>
+
+<p>```objc
+[YTVimeoExtractor fetchVideoURLFromURL:@&ldquo;<a href="http://vimeo.com/58600663">http://vimeo.com/58600663</a>&rdquo;</p>
+
+<pre><code>                           quality:YTVimeoVideoQualityMedium
+                           success:^(NSURL *videoURL) {
+NSLog(@"Video URL: %@", [videoURL absoluteString]);
+</code></pre>
+
+<p>}
+failure:^(NSError *error) {</p>
+
+<pre><code>// handle error
+</code></pre>
+
+<p>}];
+```</p>
+
+<p>or you can use delegation. Just create an YTVimeoExtractor instance.</p>
+
+<p>```objc
+self.extractor = [[YTVimeoExtractor alloc] initWithURL:@&ldquo;<a href="http://vimeo.com/58600663">http://vimeo.com/58600663</a>&rdquo;</p>
+
+<pre><code>                                           quality:YTVimeoVideoQualityHigh];
+</code></pre>
+
+<p>self.extractor.delegate = self;
+[self.extractor start];
+```</p>
+
+<p>then implement YTVimeoExtractor callback methods in your ViewController.</p>
+
+<p>```objc
+&ndash; (void)vimeoExtractor:(YTVimeoExtractor <em>)extractor didSuccessfullyExtractVimeoURL:(NSURL </em>)videoURL
+{</p>
+
+<pre><code>// launch movie player
+self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+[self.playerViewController.moviePlayer prepareToPlay];
+[self presentViewController:self.playerViewController animated:YES completion:nil];
+</code></pre>
+
+<p>}</p>
+
+<ul>
+<li>(void)vimeoExtractor:(YTVimeoExtractor <em>)extractor failedExtractingVimeoURLWithError:(NSError </em>)error;
+{
+  // handle error
+}
+```</li>
+</ul>
+
+
+<p>Check out the <a href="https://github.com/lilfaf/YTVimeoExtractor/tree/master/Sample">sample</a> application for more details.</p>
+]]></content>
+  </entry>
+  
+</feed>
