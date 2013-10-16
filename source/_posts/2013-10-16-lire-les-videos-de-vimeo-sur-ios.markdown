@@ -8,15 +8,15 @@ categories: [CocoaPods, iOS, Objective-C]
 
 ### Le contexte
 
-Il y a un peu plus d'un an, deux proches amis ont débuté un voyage participatif autour du monde appelé [You Make My Trip](http://www.youmakemytrip.com). Le principe est simple, environ une fois par moi, ils proposent aux internaute de voter pour l'un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme d'un mini documentaire. En tant qu'amis et supporteur, j'ai souhaité les aider en développant une application mobile.
+Il y a un peu plus d'un an, deux proches amis ont débuté un voyage participatif autour du monde appelé [You Make My Trip](http://www.youmakemytrip.com). Le principe est simple, environ une fois par mois, ils proposent aux internautes de voter pour l'un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme de mini documentaire. En tant qu'amis et supporteur, j'ai souhaité les aider en développant une application mobile.
 
-Jusqu'à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur [Universal Player](http://developer.vimeo.com/player/embedding) dans un "widget" [UIWebView](https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html). Le problème avec cette solution, c'est que le lecteur retourne une erreur indiquant que la vidéo demandée n'est pas disponible sur mobile. Bien sûr, c'est faux, toutes les vidéos sont encodé en trois versions, dès lors qu'elles sont "uploadé".
+Jusqu'à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur [Universal Player](http://developer.vimeo.com/player/embedding) dans un "widget" [UIWebView](https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html). Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n'est pas disponible sur mobile. Bien sûr, c'est faux, toutes les vidéos sont encodées en trois versions, dès lors qu'elles sont "uploadées".
 
 J'ai donc développé une tout autre solution, inspirée par [PlayVimeo](https://github.com/tannauit/PlayVimeo), qui exploite les redirections (faille?) du lecteur de Vimeo.
 
 ### Juste deux classes
 
-YTVimeoExtractor va vous permettre de récupérer l'adresse des fichier mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise [ARC](http://en.wikipedia.org/wiki/Automatic_Reference_Counting).
+YTVimeoExtractor va vous permettre de récupérer l'adresse des fichiers mp4 lisibles dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise [ARC](http://en.wikipedia.org/wiki/Automatic_Reference_Counting).
 
 Mais le plus cool dans tout ça, c'est que YTVimeoExtractor n'utilise aucun "widget" UIWebView, ce qui le rend léger et rapide.
 
