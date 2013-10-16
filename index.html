@@ -5,11 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Louis Larpin</title>
+	<title>Code or Die</title>
 	<meta name="author" content="Louis Larpin">
 
 	
-	<meta name="description" content="Oct 8th, 2013 CocoaPods, Objective-C, iOS Play Vimeo Videos on iOS With Ease Context A year ago two friends started an unusual participative trip &hellip;">
+	<meta name="description" content="16 octobre 2013 CocoaPods, Objective-C, iOS Lire les vidéos de Vimeo sur iOS Le contexte Il y a un peu plus d&#8217;un an, deux proches amis ont &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="/atom.xml" rel="alternate" title="Louis Larpin" type="application/atom+xml">
+	<link href="/atom.xml" rel="alternate" title="Code or Die" type="application/atom+xml">
 	
 	<link rel="canonical" href="http://lilfaf.github.io/">
 	<link href="/favicon.png" rel="shortcut icon">
@@ -50,21 +50,23 @@
 	
 </div>
 <hgroup>
-  <h1><a href="/">Louis Larpin</a></h1>
+  <h1><a href="/">Code or Die</a></h1>
+  
+    <h2><i class='icon-heart'></i> Ruby, Javascript, Objective-C, MongoDB</h2>
   
 </hgroup>
 
 <nav id="main-nav">
 <section class="aboutme">
   <p>
-    I'm a full stack web and mobile developper interested in using cutting edge technologies </br><i class="icon-heart"></i> Ruby, Javascript, Objective-C
+    Salut, moi c'est Louis Larpin, développeur web/mobile et étudiant à Supinfo Lyon.
   </p>
 </section>
 
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
+  <li><a href="/about">À propos de moi</a></li>
 </ul>
 
 </nav>
@@ -73,7 +75,7 @@
 		
 		
 		
-		<a class="twitter" href="http://twitter.com/Semtazone" title="Twitter">Twitter</a>
+		<a class="twitter" href="http://twitter.com/semtazone" title="Twitter">Twitter</a>
 		
 		
 		<a class="github" href="https://github.com/lilfaf" title="GitHub">GitHub</a>
@@ -115,7 +117,7 @@
   
 
 
-<time datetime="2013-10-08T13:46:00+02:00" data-updated="true" itemprop="datePublished">Oct 8<span>th</span>, 2013</time></div>
+<time datetime="2013-10-16T23:44:00+02:00" data-updated="true" itemprop="datePublished">16 octobre 2013</time></div>
 		<div class="tags">
 
 
@@ -125,19 +127,124 @@
 </div>
 		
 	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2013/10/08/play-vimeo-videos-on-ios-with-ease/" itemprop="url">Play Vimeo Videos on iOS With Ease</a></h1>
+	<h1 class="title" itemprop="name"><a href="/blog/2013/10/16/lire-les-videos-de-vimeo-sur-ios/" itemprop="url">Lire les vidéos de Vimeo sur iOS</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<h3>Context</h3>
+		<h3>Le contexte</h3>
 
-<p>A year ago two friends started an unusual participative trip around the world. They came up with a crowd funded project called <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Nearly every month they let users vote for a challenge based on the customs of the country they are visiting at the current time. Once the challenge has been completed they report their adventure on a mini documentary video. As a friend and supporter, I started building an iphone application but problem was most of their videos were hosted on Vimeo.</p>
+<p>Il y a un peu plus d&#8217;un an, deux proches amis ont débuté un voyage participatif autour du monde appelé <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Le principe est simple, environ une fois par moi, ils proposent aux internaute de voter pour l&#8217;un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme d&#8217;un mini documentaire. En tant qu&#8217;amis et supporteur, j&#8217;ai souhaité les aider en développant une application mobile.</p>
 
-<p>So far the only way to play Vimeo video on an iphone application was to embed their <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> into a UIWebView widget. Unfortunately, using this technique I often had an error message saying that the video couldn’t be played on mobile devices.</p>
+<p>Jusqu&#8217;à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &ldquo;widget&rdquo; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, c&#8217;est que le lecteur retourne une erreur indiquant que la vidéo demandée n&#8217;est pas disponible sur mobile. Bien sûr, c&#8217;est faux, toutes les vidéos sont encodé en trois versions, dès lors qu&#8217;elles sont &ldquo;uploadé&rdquo;.</p>
 
-<p>Therefore I started working on another solution to play all videos without a glitch, called it YTVimeoExtractor.</p>
+<p>J&#8217;ai donc développé une tout autre solution, inspirée par <a href="https://github.com/tannauit/PlayVimeo">PlayVimeo</a>, qui exploite les redirections (faille?) du lecteur de Vimeo.</p>
 
+<h3>Juste deux classes</h3>
+
+<p>YTVimeoExtractor va vous permettre de récupérer l&#8217;adresse des fichier mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise <a href="http://en.wikipedia.org/wiki/Automatic_Reference_Counting">ARC</a>.</p>
+
+<p>Mais le plus cool dans tout ça, c&#8217;est que YTVimeoExtractor n&#8217;utilise aucun &ldquo;widget&rdquo; UIWebView, ce qui le rend léger et rapide.</p>
+
+<h2>L&#8217;installation</h2>
+
+<p>Je recommande d&#8217;utiliser CocoaPods pour l&#8217;installation car c&#8217;est de loin la solution la plus rapide. Ajoutez cette ligne à votre Podfile :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">pod</span> <span class="s1">&#39;YTVimeoExtractor&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Puis, exécutez la commande: <code>pod install</code></p>
+
+<p>Autrement, vous pouvez aussi copier le dossier <a href="https://github.com/lilfaf/YTVimeoExtractor/tree/master">YTVimeoExtractor</a> dans votre projet.</p>
+
+<p>Dans tous les cas, il vous faudra aussi importer la classe dans votre controlleur :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="cp">#import &quot;YTVimeoExtractor.h&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Comment l&#8217;utiliser?</h2>
+
+<p>YTVimeoExtractor peut être utilisé de deux façons différentes. Je vous recommande d&#8217;utiliser les <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html">Blocks</a> car la syntaxe est plus déclarative et expressive :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">YTVimeoExtractor</span> <span class="nl">fetchVideoURLFromURL:</span><span class="s">@&quot;http://vimeo.com/58600663&quot;</span>
+</span><span class='line'>                               <span class="nl">quality:</span><span class="n">YTVimeoVideoQualityMedium</span>
+</span><span class='line'>                               <span class="nl">success:</span><span class="o">^</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="n">videoURL</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Initializer le lecteur</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nl">failure:</span><span class="o">^</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Gérer les erreurs ici!</span>
+</span><span class='line'><span class="p">}];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &ldquo;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&rdquo; :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">extractor</span> <span class="o">=</span> <span class="p">[[</span><span class="n">YTVimeoExtractor</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithURL:</span><span class="s">@&quot;http://vimeo.com/58600663&quot;</span>
+</span><span class='line'>                                               <span class="nl">quality:</span><span class="n">YTVimeoVideoQualityHigh</span><span class="p">];</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">extractor</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">extractor</span> <span class="n">start</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Puis implémentez ces deux &ldquo;callbacks&rdquo; pour répondre aux évènements de YTVimeoExtractor :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">vimeoExtractor:</span><span class="p">(</span><span class="n">YTVimeoExtractor</span> <span class="o">*</span><span class="p">)</span><span class="nv">extractor</span> <span class="nf">didSuccessfullyExtractVimeoURL:</span><span class="p">(</span><span class="n">NSURL</span> <span class="o">*</span><span class="p">)</span><span class="nv">videoURL</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// On initialize le lecteur directement avec l&#39;url retournée</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">playerViewController</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MPMoviePlayerViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithContentURL:</span><span class="n">videoURL</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">playerViewController</span><span class="p">.</span><span class="n">moviePlayer</span> <span class="n">prepareToPlay</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">self</span><span class="p">.</span><span class="n">playerViewController</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">vimeoExtractor:</span><span class="p">(</span><span class="n">YTVimeoExtractor</span> <span class="o">*</span><span class="p">)</span><span class="nv">extractor</span> <span class="nf">failedExtractingVimeoURLWithError:</span><span class="p">(</span><span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Gérer les erreurs ici!</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si nécessaire, vous trouverez plus de détails sur l&#8217;implémentation dans l&#8217;application <a href="https://github.com/lilfaf/YTVimeoExtractor/tree/master/Sample">sample</a>.</p>
+
+<h3>TODO ?</h3>
+
+<p>Je pensais éventuellement ajouter l&#8217;option &ldquo;YTVimeoVideoQualityAuto&rdquo; qui pourrait suivre ces règles :</p>
+
+<ul>
+<li>Wifi : Haute définition</li>
+<li>4G : Haute définition ou standard</li>
+<li>3G : Standard ou mobile</li>
+</ul>
+
+
+<p>Le choix de la qualité pourrait aussi être dictée par la version de l&#8217;iphone, retina ou pas ? Votre avis ?</p>
 
 		
-		<a href="/blog/2013/10/08/play-vimeo-videos-on-ios-with-ease/" class="more-link">Read on &rarr;</a>
+		
 	</div>
 
 </article>
