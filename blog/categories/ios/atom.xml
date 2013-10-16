@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | Code or Die]]></title>
   <link href="http://lilfaf.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://lilfaf.github.io/"/>
-  <updated>2013-10-17T01:01:20+02:00</updated>
+  <updated>2013-10-17T01:06:47+02:00</updated>
   <id>http://lilfaf.github.io/</id>
   <author>
     <name><![CDATA[Louis Larpin]]></name>
@@ -122,6 +122,9 @@ self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContent
 
 
 <p>Le choix de la qualité pourrait aussi être dictée par la version de l'iphone, retina ou pas ? Votre avis ?</p>
+
+<!-- more -->
+
 ]]></content>
   </entry>
   
