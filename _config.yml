@@ -3,11 +3,12 @@
 # ----------------------- #
 
 url: http://lilfaf.github.io
-title: Louis Larpin
-subtitle:
+title: Code or Die
+subtitle: "<i class='icon-heart'></i> Ruby, Javascript, Objective-C, MongoDB"
 author: Louis Larpin
 simple_search: http://google.com/search
-description: I'm a full stack web and mobile developper interested in using cutting edge technologies </br><i class="icon-heart"></i> Ruby, Javascript, Objective-C
+#description: I'm a full stack developper and a student at Supinfo university in France.
+description: "Salut, moi c'est Louis Larpin, développeur web/mobile et étudiant à Supinfo Lyon."
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -46,7 +47,7 @@ pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
 
-titlecase: true       # Converts page and post titles to titlecase
+titlecase: false       # Converts page and post titles to titlecase
 
 # list each of the sidebar modules you want to include, in the order you want them to appear.
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
@@ -69,7 +70,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user: Semtazone
+twitter_user: semtazone
 twitter_tweet_button: true
 
 # Google +1
