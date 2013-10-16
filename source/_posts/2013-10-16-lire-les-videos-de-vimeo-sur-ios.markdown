@@ -90,3 +90,5 @@ Je pensais éventuellement ajouter l'option "YTVimeoVideoQualityAuto" qui pourra
 - 3G : Standard ou mobile
 
 Le choix de la qualité pourrait aussi être dictée par la version de l'iphone, retina ou pas ? Votre avis ?
+
+<!-- more -->
