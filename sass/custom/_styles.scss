@@ -4,9 +4,20 @@
 .container {
   .left-col {
     opacity: 1;
+
+    .profilepic img {
+      border: 3px solid #EFEFEF;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
   }
 
   .aboutme p {
     color: #999;
   }
 }
+
+
+
+

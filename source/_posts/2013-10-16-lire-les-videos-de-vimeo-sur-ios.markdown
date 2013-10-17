@@ -14,9 +14,9 @@ Jusqu'à maintenant, la seule solution pour lire des vidéos hébergées chez Vi
 
 J'ai donc développé une tout autre solution, inspirée par [PlayVimeo](https://github.com/tannauit/PlayVimeo), qui exploite les redirections (faille?) du lecteur de Vimeo.
 
-### Juste deux classes
+### Juste deux fichiers
 
-YTVimeoExtractor va vous permettre de récupérer l'adresse des fichiers mp4 lisibles dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise [ARC](http://en.wikipedia.org/wiki/Automatic_Reference_Counting).
+YTVimeoExtractor va vous permettre de récupérer l'adresse des fichiers mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise [ARC](http://en.wikipedia.org/wiki/Automatic_Reference_Counting).
 
 Mais le plus cool dans tout ça, c'est que YTVimeoExtractor n'utilise aucun "widget" UIWebView, ce qui le rend léger et rapide.
 
