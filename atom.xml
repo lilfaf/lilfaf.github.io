@@ -4,7 +4,7 @@
   <title><![CDATA[Code or Die]]></title>
   <link href="http://lilfaf.github.io/atom.xml" rel="self"/>
   <link href="http://lilfaf.github.io/"/>
-  <updated>2013-10-17T16:45:21+02:00</updated>
+  <updated>2013-10-19T17:09:51+02:00</updated>
   <id>http://lilfaf.github.io/</id>
   <author>
     <name><![CDATA[Louis Larpin]]></name>
@@ -12,6 +12,126 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Débuter avec Meteor.js]]></title>
+    <link href="http://lilfaf.github.io/blog/2013/10/19/debuter-avec-meteor-dot-js/"/>
+    <updated>2013-10-19T15:16:00+02:00</updated>
+    <id>http://lilfaf.github.io/blog/2013/10/19/debuter-avec-meteor-dot-js</id>
+    <content type="html"><![CDATA[<h3>Introduction</h3>
+
+<p><a href="http://www.meteor.com/">Meteor.js</a> est un framework web de &#8220;nouvelle-génération&#8221; développé en Javascript et basé sur <a href="http://nodejs.org/">Node.js</a>, du côté serveur. Le projet remet totalement en question la manière de considérer les architectures <a href="http://en.wikipedia.org/wiki/Client%E2%80%93server_model">client-serveur</a>.</p>
+
+<p>Plus qu&#8217;un framework, Meteor est un écosystème complet qui embarque un gestionnaire de paquets, un web serveur, etc. Il est même possible de déployer sont application sur les infrastructures de Meteor en une ligne commande.</p>
+
+<p>Avec Meteor tout est entièrement dynamique et la base de données est accessible autant du côté serveur, que du côté client. La base données <a href="http://www.mongodb.org/">MongoDB</a> est aussi livrée par défaut avec Meteor. Nous allons donc rapidement voir ce que ce concept implique et les possibilités qu&#8217;il nous offre.</p>
+
+<h3>Démarrer en un éclair !</h3>
+
+<p>L&#8217;installation de Meteor est vraiment très simple, il suffit d&#8217;exécuter cette commande :</p>
+
+<p><code>curl https://install.meteor.com | /bin/sh</code></p>
+
+<p>Pour créer un nouveau projet, utilisez cette commande :</p>
+
+<p><code>meteor create myapp</code></p>
+
+<p>Puis vous pouvez démarrer le serveur local et naviguer à l&#8217;adresse <em>http://localhost:3000/</em> :</p>
+
+<p><code>cd myapp &amp;&amp; meteor</code></p>
+
+<h3>MongoDB sur le client et le serveur ?</h3>
+
+<p>Tout d&#8217;abord, il faut bien comprendre que le code tourne par défaut sur le client et le serveur. Pour forcer l&#8217;exécution sur l&#8217;un des deux côté, nous pourrons tester dans quel environnement l&#8217;on se trouve, comme ceci:</p>
+
+<figure class='code'><figcaption><span>myapp.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// Code qui tourne sur le client et le serveur</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isClient</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// Code du client</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">isServer</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// Code de serveur</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Tout ce qui est défini est dehors de ces deux bloque sera exposé du côté client et serveur. Pour mieux comprendre le principe de &#8220;database everywhere&#8221;, nous allons créer une simple <a href="http://docs.meteor.com/#collections">collection</a>, en haut du fichier <em>myapp.js</em> :</p>
+
+<figure class='code'><figcaption><span>myapp.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Posts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&quot;posts&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ensuite il nous faut créer un &#8220;template&#8221;, dans le bloque de code du client, pour afficher notre collection :</p>
+
+<figure class='code'><figcaption><span>myapp.js</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Template</span><span class="p">.</span><span class="nx">post_list</span><span class="p">.</span><span class="nx">posts</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nx">Posts</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span><span class="nx">sort</span><span class="o">:</span> <span class="p">{</span> <span class="nx">title</span><span class="o">:</span> <span class="mi">1</span><span class="p">}});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Meteor se charge de mettre à jour la page en temps réel. En d&#8217;autres termes, nous allons gagner énormément de temps, car nous n&#8217;aurons pas d&#8217;AJAX ou de manipulation du DOM a écrire.
+Enfin, il nous suffit donc d&#8217;utiliser notre &#8220;template&#8221; dans le fichier <em>myapp.html</em> :</p>
+
+<figure class='code'><figcaption><span>myapp.html</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>...
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  {{&gt; post_list}}
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;template</span> <span class="na">name=</span><span class="s">&quot;post_list&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;h1&gt;</span>Posts List!<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>  {{#each posts}}
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>{{title}}<span class="nt">&lt;/li&gt;</span>
+</span><span class='line'>  {{/each}}
+</span><span class='line'>  <span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'><span class="nt">&lt;/template&gt;</span>
+</span><span class='line'>...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Et voilà, c&#8217;est fini. Nous pouvons commencer à ajouter des données et les regarder apparaitre dynamiquement. Pour ce faire, ouvrez votre navigateur et les outils de développement. Dans la section console, entrez ceci :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Posts</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;hello world&quot;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si vous ouvrez deux fenêtres de navigation vous pourrez constater que les changements se reflètent chez tous les clients. Meteor est magique, peut être un peu trop. Mais c&#8217;est tout de même plutôt cool de pouvoir développer une page si dynamique avec très peu de code.</p>
+
+<p>J&#8217;espère que cet article vous aura donné envie de jeter au moins un coup d&#8217;oeil à ce projet. Mais attention, Meteor est encore en développement, la version 1.0 devrais arriver d&#8217;ici quelques mois, il n&#8217;est donc pas recommandé de l&#8217;utiliser en production pour le moment.</p>
+
+<!-- more -->
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Lire les vidéos de Vimeo sur iOS]]></title>
@@ -22,7 +142,7 @@
 
 <p>Il y a un peu plus d&#8217;un an, deux proches amis ont débuté un voyage participatif autour du monde appelé <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Le principe est simple, environ une fois par mois, ils proposent aux internautes de voter pour l&#8217;un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme de mini documentaire. En tant qu&#8217;amis et supporteur, j&#8217;ai souhaité les aider en développant une application mobile.</p>
 
-<p>Jusqu&#8217;à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &ldquo;widget&rdquo; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n&#8217;est pas disponible sur mobile. Bien sûr, c&#8217;est faux, toutes les vidéos sont encodées en trois versions, dès lors qu&#8217;elles sont &ldquo;uploadées&rdquo;.</p>
+<p>Jusqu&#8217;à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &#8220;widget&#8221; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n&#8217;est pas disponible sur mobile. Bien sûr, c&#8217;est faux, toutes les vidéos sont encodées en trois versions, dès lors qu&#8217;elles sont &#8220;uploadées&#8221;.</p>
 
 <p>J&#8217;ai donc développé une tout autre solution, inspirée par <a href="https://github.com/tannauit/PlayVimeo">PlayVimeo</a>, qui exploite les redirections (faille?) du lecteur de Vimeo.</p>
 
@@ -30,7 +150,7 @@
 
 <p>YTVimeoExtractor va vous permettre de récupérer l&#8217;adresse des fichiers mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise <a href="http://en.wikipedia.org/wiki/Automatic_Reference_Counting">ARC</a>.</p>
 
-<p>Mais le plus cool dans tout ça, c&#8217;est que YTVimeoExtractor n&#8217;utilise aucun &ldquo;widget&rdquo; UIWebView, ce qui le rend léger et rapide.</p>
+<p>Mais le plus cool dans tout ça, c&#8217;est que YTVimeoExtractor n&#8217;utilise aucun &#8220;widget&#8221; UIWebView, ce qui le rend léger et rapide.</p>
 
 <h2>L&#8217;installation</h2>
 
@@ -75,7 +195,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &ldquo;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&rdquo; :</p>
+<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &#8221;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&#8221; :</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -88,7 +208,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Puis implémentez ces deux &ldquo;callbacks&rdquo; pour répondre aux évènements de YTVimeoExtractor :</p>
+<p>Puis implémentez ces deux &#8220;callbacks&#8221; pour répondre aux évènements de YTVimeoExtractor :</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -121,7 +241,7 @@
 
 <h3>TODO ?</h3>
 
-<p>Je pensais éventuellement ajouter l&#8217;option &ldquo;YTVimeoVideoQualityAuto&rdquo; qui pourrait suivre ces règles :</p>
+<p>Je pensais éventuellement ajouter l&#8217;option &#8220;YTVimeoVideoQualityAuto&#8221; qui pourrait suivre ces règles :</p>
 
 <ul>
 <li>Wifi : Haute définition</li>

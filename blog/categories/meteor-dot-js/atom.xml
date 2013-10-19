@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Meteor.js | Code or Die]]></title>
+  <link href="http://lilfaf.github.io/blog/categories/meteor-dot-js/atom.xml" rel="self"/>
+  <link href="http://lilfaf.github.io/"/>
+  <updated>2013-10-19T17:09:51+02:00</updated>
+  <id>http://lilfaf.github.io/</id>
+  <author>
+    <name><![CDATA[Louis Larpin]]></name>
+    <email><![CDATA[louis.larpin@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Débuter avec Meteor.js]]></title>
+    <link href="http://lilfaf.github.io/blog/2013/10/19/debuter-avec-meteor-dot-js/"/>
+    <updated>2013-10-19T15:16:00+02:00</updated>
+    <id>http://lilfaf.github.io/blog/2013/10/19/debuter-avec-meteor-dot-js</id>
+    <content type="html"><![CDATA[<h3>Introduction</h3>
+
+<p><a href="http://www.meteor.com/">Meteor.js</a> est un framework web de "nouvelle-génération" développé en Javascript et basé sur <a href="http://nodejs.org/">Node.js</a>, du côté serveur. Le projet remet totalement en question la manière de considérer les architectures <a href="http://en.wikipedia.org/wiki/Client%E2%80%93server_model">client-serveur</a>.</p>
+
+<p>Plus qu'un framework, Meteor est un écosystème complet qui embarque un gestionnaire de paquets, un web serveur, etc. Il est même possible de déployer sont application sur les infrastructures de Meteor en une ligne commande.</p>
+
+<p>Avec Meteor tout est entièrement dynamique et la base de données est accessible autant du côté serveur, que du côté client. La base données <a href="http://www.mongodb.org/">MongoDB</a> est aussi livrée par défaut avec Meteor. Nous allons donc rapidement voir ce que ce concept implique et les possibilités qu'il nous offre.</p>
+
+<h3>Démarrer en un éclair !</h3>
+
+<p>L'installation de Meteor est vraiment très simple, il suffit d'exécuter cette commande :</p>
+
+<p><code>curl https://install.meteor.com | /bin/sh</code></p>
+
+<p>Pour créer un nouveau projet, utilisez cette commande :</p>
+
+<p><code>meteor create myapp</code></p>
+
+<p>Puis vous pouvez démarrer le serveur local et naviguer à l'adresse <em>http://localhost:3000/</em> :</p>
+
+<p><code>cd myapp &amp;&amp; meteor</code></p>
+
+<h3>MongoDB sur le client et le serveur ?</h3>
+
+<p>Tout d'abord, il faut bien comprendre que le code tourne par défaut sur le client et le serveur. Pour forcer l'exécution sur l'un des deux côté, nous pourrons tester dans quel environnement l'on se trouve, comme ceci:</p>
+
+<p>```javascript myapp.js
+// Code qui tourne sur le client et le serveur</p>
+
+<p>if (Meteor.isClient) {
+  // Code du client
+}</p>
+
+<p>if (Meteor.isServer) {
+  // Code de serveur
+}
+```</p>
+
+<p>Tout ce qui est défini est dehors de ces deux bloque sera exposé du côté client et serveur. Pour mieux comprendre le principe de "database everywhere", nous allons créer une simple <a href="http://docs.meteor.com/#collections">collection</a>, en haut du fichier <em>myapp.js</em> :</p>
+
+<p><code>javascript myapp.js
+Posts = new Meteor.Collection("posts");
+</code></p>
+
+<p>Ensuite il nous faut créer un "template", dans le bloque de code du client, pour afficher notre collection :</p>
+
+<p><code>javascript myapp.js
+Template.post_list.posts = function () {
+  return Posts.find({}, {sort: { title: 1}});
+};
+</code></p>
+
+<p>Meteor se charge de mettre à jour la page en temps réel. En d'autres termes, nous allons gagner énormément de temps, car nous n'aurons pas d'AJAX ou de manipulation du DOM a écrire.
+Enfin, il nous suffit donc d'utiliser notre "template" dans le fichier <em>myapp.html</em> :</p>
+
+<p>
+```html myapp.html
+...
+<body>
+  {{> post_list}}
+</body></p>
+
+<p><template name="post_list">
+  <h1>Posts List!</h1>
+  <ul>
+  {{#each posts}}</p>
+
+<pre><code>&lt;li&gt;{{title}}&lt;/li&gt;
+</code></pre>
+
+<p>  {{/each}}
+  </ul>
+</template>
+...
+```
+</p>
+
+<p>Et voilà, c'est fini. Nous pouvons commencer à ajouter des données et les regarder apparaitre dynamiquement. Pour ce faire, ouvrez votre navigateur et les outils de développement. Dans la section console, entrez ceci :</p>
+
+<p><code>javascript
+Posts.insert({title: "hello world"});
+</code></p>
+
+<p>Si vous ouvrez deux fenêtres de navigation vous pourrez constater que les changements se reflètent chez tous les clients. Meteor est magique, peut être un peu trop. Mais c'est tout de même plutôt cool de pouvoir développer une page si dynamique avec très peu de code.</p>
+
+<p>J'espère que cet article vous aura donné envie de jeter au moins un coup d'oeil à ce projet. Mais attention, Meteor est encore en développement, la version 1.0 devrais arriver d'ici quelques mois, il n'est donc pas recommandé de l'utiliser en production pour le moment.</p>
+
+<!-- more -->
+
+]]></content>
+  </entry>
+  
+</feed>

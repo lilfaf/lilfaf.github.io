@@ -31,6 +31,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-44993818-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
 
 </head>
 
@@ -105,7 +117,7 @@
 
 <p>Il y a un peu plus d&#8217;un an, deux proches amis ont débuté un voyage participatif autour du monde appelé <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Le principe est simple, environ une fois par mois, ils proposent aux internautes de voter pour l&#8217;un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme de mini documentaire. En tant qu&#8217;amis et supporteur, j&#8217;ai souhaité les aider en développant une application mobile.</p>
 
-<p>Jusqu&#8217;à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &ldquo;widget&rdquo; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n&#8217;est pas disponible sur mobile. Bien sûr, c&#8217;est faux, toutes les vidéos sont encodées en trois versions, dès lors qu&#8217;elles sont &ldquo;uploadées&rdquo;.</p>
+<p>Jusqu&#8217;à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &#8220;widget&#8221; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n&#8217;est pas disponible sur mobile. Bien sûr, c&#8217;est faux, toutes les vidéos sont encodées en trois versions, dès lors qu&#8217;elles sont &#8220;uploadées&#8221;.</p>
 
 <p>J&#8217;ai donc développé une tout autre solution, inspirée par <a href="https://github.com/tannauit/PlayVimeo">PlayVimeo</a>, qui exploite les redirections (faille?) du lecteur de Vimeo.</p>
 
@@ -113,7 +125,7 @@
 
 <p>YTVimeoExtractor va vous permettre de récupérer l&#8217;adresse des fichiers mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise <a href="http://en.wikipedia.org/wiki/Automatic_Reference_Counting">ARC</a>.</p>
 
-<p>Mais le plus cool dans tout ça, c&#8217;est que YTVimeoExtractor n&#8217;utilise aucun &ldquo;widget&rdquo; UIWebView, ce qui le rend léger et rapide.</p>
+<p>Mais le plus cool dans tout ça, c&#8217;est que YTVimeoExtractor n&#8217;utilise aucun &#8220;widget&#8221; UIWebView, ce qui le rend léger et rapide.</p>
 
 <h2>L&#8217;installation</h2>
 
@@ -158,7 +170,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &ldquo;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&rdquo; :</p>
+<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &#8221;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&#8221; :</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -171,7 +183,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Puis implémentez ces deux &ldquo;callbacks&rdquo; pour répondre aux évènements de YTVimeoExtractor :</p>
+<p>Puis implémentez ces deux &#8220;callbacks&#8221; pour répondre aux évènements de YTVimeoExtractor :</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -204,7 +216,7 @@
 
 <h3>TODO ?</h3>
 
-<p>Je pensais éventuellement ajouter l&#8217;option &ldquo;YTVimeoVideoQualityAuto&rdquo; qui pourrait suivre ces règles :</p>
+<p>Je pensais éventuellement ajouter l&#8217;option &#8220;YTVimeoVideoQualityAuto&#8221; qui pourrait suivre ces règles :</p>
 
 <ul>
 <li>Wifi : Haute définition</li>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CocoaPods | Code or Die]]></title>
   <link href="http://lilfaf.github.io/blog/categories/cocoapods/atom.xml" rel="self"/>
   <link href="http://lilfaf.github.io/"/>
-  <updated>2013-10-17T16:45:21+02:00</updated>
+  <updated>2013-10-19T17:09:51+02:00</updated>
   <id>http://lilfaf.github.io/</id>
   <author>
     <name><![CDATA[Louis Larpin]]></name>
@@ -22,7 +22,7 @@
 
 <p>Il y a un peu plus d'un an, deux proches amis ont débuté un voyage participatif autour du monde appelé <a href="http://www.youmakemytrip.com">You Make My Trip</a>. Le principe est simple, environ une fois par mois, ils proposent aux internautes de voter pour l'un des quatre défis proposés. Une fois le challenge terminé, ils publient une vidéo, sous forme de mini documentaire. En tant qu'amis et supporteur, j'ai souhaité les aider en développant une application mobile.</p>
 
-<p>Jusqu'à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un &ldquo;widget&rdquo; <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n'est pas disponible sur mobile. Bien sûr, c'est faux, toutes les vidéos sont encodées en trois versions, dès lors qu'elles sont &ldquo;uploadées&rdquo;.</p>
+<p>Jusqu'à maintenant, la seule solution pour lire des vidéos hébergées chez Vimeo.com était de charger leur <a href="http://developer.vimeo.com/player/embedding">Universal Player</a> dans un "widget" <a href="https://developer.apple.com/library/ios/documentation/uikit/reference/UIWebView_Class/Reference/Reference.html">UIWebView</a>. Le problème avec cette solution, est que le lecteur retourne souvent une erreur indiquant que la vidéo demandée n'est pas disponible sur mobile. Bien sûr, c'est faux, toutes les vidéos sont encodées en trois versions, dès lors qu'elles sont "uploadées".</p>
 
 <p>J'ai donc développé une tout autre solution, inspirée par <a href="https://github.com/tannauit/PlayVimeo">PlayVimeo</a>, qui exploite les redirections (faille?) du lecteur de Vimeo.</p>
 
@@ -30,7 +30,7 @@
 
 <p>YTVimeoExtractor va vous permettre de récupérer l'adresse des fichiers mp4 lisible dans le lecteur natif de iOS. Il est même possible de choisir la qualité de la vidéo. Trois options sont disponibles, mobile, standard et haute définition. YTVimeoExtractor est compatible avec iOS 4.0 et plus, car il utilise <a href="http://en.wikipedia.org/wiki/Automatic_Reference_Counting">ARC</a>.</p>
 
-<p>Mais le plus cool dans tout ça, c'est que YTVimeoExtractor n'utilise aucun &ldquo;widget&rdquo; UIWebView, ce qui le rend léger et rapide.</p>
+<p>Mais le plus cool dans tout ça, c'est que YTVimeoExtractor n'utilise aucun "widget" UIWebView, ce qui le rend léger et rapide.</p>
 
 <h2>L'installation</h2>
 
@@ -48,7 +48,7 @@ pod 'YTVimeoExtractor'
 
 <p>```objc</p>
 
-<h1>import &ldquo;YTVimeoExtractor.h&rdquo;</h1>
+<h1>import "YTVimeoExtractor.h"</h1>
 
 <p>```</p>
 
@@ -57,7 +57,7 @@ pod 'YTVimeoExtractor'
 <p>YTVimeoExtractor peut être utilisé de deux façons différentes. Je vous recommande d'utiliser les <a href="https://developer.apple.com/library/ios/documentation/cocoa/conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html">Blocks</a> car la syntaxe est plus déclarative et expressive :</p>
 
 <p>```objc
-[YTVimeoExtractor fetchVideoURLFromURL:@&ldquo;<a href="http://vimeo.com/58600663">http://vimeo.com/58600663</a>&rdquo;</p>
+[YTVimeoExtractor fetchVideoURLFromURL:@"http://vimeo.com/58600663"</p>
 
 <pre><code>                           quality:YTVimeoVideoQualityMedium
                            success:^(NSURL *videoURL) {
@@ -73,10 +73,10 @@ failure:^(NSError *error) {</p>
 <p>}];
 ```</p>
 
-<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le &ldquo;<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>&rdquo; :</p>
+<p>Vous pouvez aussi, simplement créer une instance de YTVimeoExtractor et définir le "<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/CocoaEncyclopedia/DelegatesandDataSources/DelegatesandDataSources.html">delegate</a>" :</p>
 
 <p>```objc
-self.extractor = [[YTVimeoExtractor alloc] initWithURL:@&ldquo;<a href="http://vimeo.com/58600663">http://vimeo.com/58600663</a>&rdquo;</p>
+self.extractor = [[YTVimeoExtractor alloc] initWithURL:@"http://vimeo.com/58600663"</p>
 
 <pre><code>                                           quality:YTVimeoVideoQualityHigh];
 </code></pre>
@@ -85,10 +85,10 @@ self.extractor = [[YTVimeoExtractor alloc] initWithURL:@&ldquo;<a href="http://v
 [self.extractor start];
 ```</p>
 
-<p>Puis implémentez ces deux &ldquo;callbacks&rdquo; pour répondre aux évènements de YTVimeoExtractor :</p>
+<p>Puis implémentez ces deux "callbacks" pour répondre aux évènements de YTVimeoExtractor :</p>
 
 <p>```objc
-&ndash; (void)vimeoExtractor:(YTVimeoExtractor <em>)extractor didSuccessfullyExtractVimeoURL:(NSURL </em>)videoURL
+- (void)vimeoExtractor:(YTVimeoExtractor <em>)extractor didSuccessfullyExtractVimeoURL:(NSURL </em>)videoURL
 {</p>
 
 <pre><code>// On initialize le lecteur directement avec l'url retournée
@@ -112,7 +112,7 @@ self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContent
 
 <h3>TODO ?</h3>
 
-<p>Je pensais éventuellement ajouter l'option &ldquo;YTVimeoVideoQualityAuto&rdquo; qui pourrait suivre ces règles :</p>
+<p>Je pensais éventuellement ajouter l'option "YTVimeoVideoQualityAuto" qui pourrait suivre ces règles :</p>
 
 <ul>
 <li>Wifi : Haute définition</li>
